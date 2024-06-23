@@ -266,6 +266,9 @@ Change bind-address to either 0.0.0.0 (listen on all available network interface
 
 bind-address = 0.0.0.0
 
+![](https://github.com/UzonduEgbombah/server-gh/assets/137091610/3af54eb2-09cb-4835-8f61-2ae9caa2d64e)
+
+
 then restart mysql
 
 ```sh
