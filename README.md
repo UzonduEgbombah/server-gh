@@ -30,7 +30,7 @@ sudo apt install mysql-server -y
 - To enter MySQL
 
 ```sh
-sudo MySQL
+sudo mysql
 ```
 
 - To install php-fpm and php-mysql
