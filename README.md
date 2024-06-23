@@ -54,7 +54,7 @@ sudo chown -R $USER:$USER /var/www/projectLEMP
 - To open new config file in Nginx sites-available directory
 
 ```sh
-sudo vi /etc/nginx/sites-available/projectLEMP
+sudo nano /etc/nginx/sites-available/projectLEMP
 ```
 
 add this file
