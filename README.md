@@ -156,7 +156,7 @@ sudo mysql
 create database
 
 ```sh
-CREATE DATABASE 'example_database';
+CREATE DATABASE `example_database`;
 ```
 
 create new user
@@ -168,10 +168,123 @@ CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'passwor
 give user permission
 
 ```sh
-GRANT ALL ON 'example_database.* TO 'example_user'@'%';
+GRANT ALL PRIVILEGES ON example_database.* TO 'example_user'@'%';
 ```
 
 exit
+
+login with user created earlier
+
+```sh
+mysql -u example_user -p
+```
+
+```sh
+show databases;
+```
+
+create a table
+
+```sh
+CREATE TABLE example_database.todo_list (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    task VARCHAR(255) NOT NULL,
+    description TEXT,
+    due_date DATE,
+    priority ENUM('Low', 'Medium', 'High') DEFAULT 'Medium',
+    completed BOOLEAN DEFAULT false
+);
+```
+
+insert content into our table
+
+```sh
+INSERT INTO example_database.todo_list (task, description, priority)
+VALUES 
+    ('my first important item', 'Description of the first item', 'High'),
+    ('my second important item', 'Description of the second item', 'Medium'),
+    ('my last important item', 'Description of the last item', 'Low');
+```
+
+```sh
+SELECT * FROM example_database.todo_list;
+```
+
+exit
+
+create PHP script that connects to mysql for content
+
+```sh
+nano /var/www/projectLEMP/todo_list.php
+```
+
+copy and paste into the file
+
+```sh
+<?php
+
+$host = '34.238.121.61';       
+$dbname = 'example_database'; 
+$username = 'example_user'; 
+$password = 'password'; 
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT * FROM todo_list";
+    $stmt = $pdo->query($sql);
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($rows) > 0) {
+        echo '<ul>';
+        foreach ($rows as $row) {
+            echo '<li>' . htmlspecialchars($row['task']) . '</li>';
+        }
+        echo '</ul>';
+    } else {
+        echo 'No tasks found.';
+    }
+    
+} catch (PDOException $e) {
+    die("Error connecting to database: " . $e->getMessage());
+}
+
+?>
+```
+
+then go into this file and edit to allow connection from anywhere
+
+```sh
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+```
+
+- Look for the bind-address parameter in the [mysqld] section.
+-  By default, it may be set to 127.0.0.1, which limits MySQL to accept connections only from localhost.
+
+Change bind-address to either 0.0.0.0 (listen on all available network interfaces) or specify the IP address of your MySQL server if you want to restrict connections to a specific IP:
+
+bind-address = 0.0.0.0
+
+then restart mysql
+
+```sh
+sudo systemctl restart mysql
+```
+
+
+
+![](https://github.com/UzonduEgbombah/server-gh/assets/137091610/b3734503-04dd-48d8-8c2b-95d6fab8f291)
+
+
+goodluck
+
+
+
+
+
+
+
 
 
 
