@@ -147,4 +147,53 @@ Remove with the command
 sudo rm /var/www/projectLEMP/info.php
 ```
 
-contd
+#### steps
+
+```sh
+sudo mysql
+```
+
+create database
+
+```sh
+CREATE DATABASE 'example_database';
+```
+
+create new user
+
+```sh
+CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+```
+
+give user permission
+
+```sh
+GRANT ALL ON 'example_database.* TO 'example_user'@'%';
+```
+
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
