@@ -79,6 +79,7 @@ server {
     location ~ /\.ht {
         deny all;
     }
+}
 ```
 
 - Enable the configuration:
